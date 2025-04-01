@@ -19,19 +19,6 @@ export const uploadImage = async (imagePath) => {
 	}
 };
 
-// Upload profile image to Cloudinary
-export const uploadProfileImage = async (imagePath) => {
-	try {
-		const result = await cloudinary.uploader.upload(imagePath, {
-			folder: "profile",
-		});
-		return { secureUrl: result.secure_url, publicId: result.public_id };
-	} catch (error) {
-		console.error("Cloudinary Upload Error:", error);
-		throw error;
-	}
-};
-
 // Delete image from Cloudinary
 export const deleteImage = async (publicId) => {
 	try {

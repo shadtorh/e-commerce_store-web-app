@@ -2,7 +2,6 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
-import { uploadProfileImage } from "../config/cloudinary.js";
 dotenv.config();
 
 // Signup Controller
@@ -180,14 +179,8 @@ export const getAllUsers = async (req, res) => {
 // Update Profile Controller
 export const updateProfile = async (req, res) => {
 	const { user } = req; // The user attached by authMiddleware
-	const updateData = { name, location };
-
-	if (req.file) {
-		const uploadedImage = await uploadProfileImage(req.file.path);
-		const imageUrl = uploadedImage.secureUrl;
-		updateData.profilePic = req.file.path;
-	}
-
+	const { ...rest } = req.body; // Get location from request body
+	const updateData = { ...rest }; // Initialize updateData with the rest of the fields
 	try {
 		const updatedUser = await User.findByIdAndUpdate(
 			user._id,
