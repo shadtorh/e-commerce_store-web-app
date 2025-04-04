@@ -3,10 +3,11 @@ import { Search, ShoppingCart, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
+import Loading from "./Loading";
 
 const Navbar = () => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
-	const { user, logout } = useUserStore();
+	const { user, logout, isLoading } = useUserStore();
 	const { cart, getCartItems } = useCartStore();
 
 	const isUser = user?.role === "user";
@@ -43,6 +44,10 @@ const Navbar = () => {
 		handleLinkClick();
 		cart.length = 0; // Clear cart on logout
 	};
+
+	if (isLoading) {
+		return null; // Show loading state
+	}
 
 	return (
 		<nav className="bg-white shadow-md sticky top-0 z-50">

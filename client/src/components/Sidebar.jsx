@@ -18,7 +18,7 @@ const Sidebar = () => {
 	const links = [
 		{ path: "/admin-dashboard", icon: Home, label: "Dashboard" },
 		{ path: "/admin/products", icon: Package, label: "Products" },
-		{ path: "/admin/orders", icon: ShoppingCart, label: "Orders" },
+		// { path: "/admin/orders", icon: ShoppingCart, label: "Orders" },
 		{ path: "/admin/analytics", icon: BarChart, label: "Analytics" },
 	]; // links for the sidebar
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Camera, Loader2 } from "lucide-react";
 import { useUserStore } from "../stores/useUserStore";
@@ -6,13 +6,23 @@ import { useUserStore } from "../stores/useUserStore";
 const Profile = () => {
 	const { user, isLoading, updateProfile } = useUserStore();
 	const [formData, setFormData] = useState({
-		name: user?.name || "",
-		location: user?.location || "",
-		avatar: user?.avatar || "",
+		name: "",
 	});
-	const [imagePreview, setImagePreview] = useState(user?.avatar || "");
-	const [isUploading, setIsUploading] = useState(false);
-	const fileInputRef = useRef(null);
+
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		await getAllUsers();
+	// 	};
+	// 	fetchData();
+	// }, [getAllUsers]);
+
+	useEffect(() => {
+		if (user) {
+			setFormData({
+				name: user.name || "",
+			});
+		}
+	}, [user]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -26,27 +36,11 @@ const Profile = () => {
 		fileInputRef.current.click();
 	};
 
-	const handleImageChange = (e) => {
-		const file = e.target.files[0];
-		if (file && file.type.startsWith("image/")) {
-			setIsUploading(true);
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setImagePreview(reader.result);
-				setFormData((prev) => ({
-					...prev,
-					avatar: reader.result,
-				}));
-				setIsUploading(false);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			await updateProfile(formData);
+			// await fetchUser();
 		} catch (error) {
 			console.error("Failed to update profile:", error);
 		}
@@ -66,41 +60,6 @@ const Profile = () => {
 
 					<form onSubmit={handleSubmit} className="space-y-6">
 						{/* Profile Picture */}
-						<div className="flex flex-col items-center">
-							<div className="relative">
-								<div
-									className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden cursor-pointer group"
-									onClick={handleImageClick}
-								>
-									{isUploading ? (
-										<Loader2 className="h-8 w-8 animate-spin text-gray-400" />
-									) : imagePreview ? (
-										<img
-											src={imagePreview}
-											alt="Profile"
-											className="w-full h-full object-cover"
-										/>
-									) : (
-										<div className="text-gray-400">
-											<Camera size={32} />
-										</div>
-									)}
-									<div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-										<Camera className="text-white" size={24} />
-									</div>
-								</div>
-								<input
-									type="file"
-									ref={fileInputRef}
-									onChange={handleImageChange}
-									accept="image/*"
-									className="hidden"
-								/>
-							</div>
-							<p className="text-sm text-gray-500 mt-2">
-								Click the camera icon to upload a photo
-							</p>
-						</div>
 
 						{/* Name */}
 						<div>
@@ -118,19 +77,6 @@ const Profile = () => {
 						</div>
 
 						{/* Location */}
-						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-2">
-								Location
-							</label>
-							<input
-								type="text"
-								name="location"
-								value={formData.location}
-								onChange={handleChange}
-								placeholder="Enter your location"
-								className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-							/>
-						</div>
 
 						{/* Email (Read-only) */}
 						<div>

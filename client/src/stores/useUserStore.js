@@ -101,4 +101,21 @@ export const useUserStore = create((set) => ({
 			set({ isLoading: false }); // Reset isLoading after fetching users
 		}
 	},
+
+	updateProfile: async (updateData) => {
+		set({ isLoading: true, error: null });
+		try {
+			const response = await axios.put("/auth/update-profile", updateData);
+			// console.log("Update response:", response.data); // Debugging log
+
+			set({ user: response.data.user }); // Update user state with the updated user data
+			toast.success(response.data.message);
+		} catch (error) {
+			const errorMessage =
+				error.response?.data?.message || "Something went wrong";
+			toast.error(errorMessage);
+		} finally {
+			set({ isLoading: false }); // Reset isLoading after update attempt
+		}
+	},
 }));
