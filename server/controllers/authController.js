@@ -42,8 +42,8 @@ export const signup = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			secure: process.env.NODE_ENV !== "development",
-			sameSite: "strict",
+			secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Allow cross-origin cookies in production
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
@@ -101,9 +101,9 @@ export const login = async (req, res) => {
 		}); //create token for user with 30 days expiration
 
 		res.cookie("jwt", token, {
-			httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-			secure: process.env.NODE_ENV !== "development", // Only send the cookie over HTTPS in production
-			sameSite: "strict", // Prevent the cookie from being sent along with requests to other sites
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Allow cross-origin cookies in production
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
@@ -128,9 +128,9 @@ export const logout = async (req, res) => {
 	try {
 		res.cookie("jwt", "", {
 			httpOnly: true,
-			expires: new Date(0), // Expire immediately
-			secure: process.env.NODE_ENV !== "development",
-			sameSite: "strict",
+			secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Allow cross-origin cookies in production
+			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days,
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
 		res.status(200).json({ success: true, message: "Logged out successfully" }); //send response to user with message
