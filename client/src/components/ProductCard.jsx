@@ -46,6 +46,7 @@ const ProductCard = ({ product }) => {
 					alt={product.name}
 					className="w-full h-40 md:h-48 object-cover object-center"
 				/>
+			</div>
 
 			{/* Product Info */}
 			<div className="p-4 space-y-4">
