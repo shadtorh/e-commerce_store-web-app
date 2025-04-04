@@ -18,7 +18,9 @@ app.use(cookieParser());
 connectDB();
 app.use(
 	cors({
-		origin: process.env.FRONTEND_URL || "http://localhost:5173/",
+		origin:
+			process.env.FRONTEND_URL ||
+			"https://e-commerce-store-web-app-green.vercel.app",
 		credentials: true,
 	})
 );
