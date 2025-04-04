@@ -42,8 +42,8 @@ export const signup = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			secure: process.env.NODE_ENV !== "development",
-			sameSite: "strict",
+			secure: true,
+			sameSite: "none", // Prevent the cookie from being sent along with requests to other sites
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
@@ -102,8 +102,8 @@ export const login = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-			secure: process.env.NODE_ENV !== "development", // Only send the cookie over HTTPS in production
-			sameSite: "strict", // Prevent the cookie from being sent along with requests to other sites
+			secure: true,
+			sameSite: "none", // Prevent the cookie from being sent along with requests to other sites
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
@@ -129,8 +129,8 @@ export const logout = async (req, res) => {
 		res.cookie("jwt", "", {
 			httpOnly: true,
 			expires: new Date(0), // Expire immediately
-			secure: process.env.NODE_ENV !== "development",
-			sameSite: "strict",
+			secure: true
+			sameSite: "none",
 		}); //create cookie for user with 30 days expiration and httpOnly true
 
 		res.status(200).json({ success: true, message: "Logged out successfully" }); //send response to user with message
