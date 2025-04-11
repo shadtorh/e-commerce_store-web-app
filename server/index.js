@@ -16,11 +16,22 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 connectDB();
+
+const allowedOrigins = [
+	"http://localhost:5173",
+	process.env.FRONTEND_URL,
+	"https://e-commerce-store-web-app-green.vercel.app", // <-- replace with your actual frontend URL
+];
+
 app.use(
 	cors({
-		origin:
-			process.env.FRONTEND_URL ||
-			"https://e-commerce-store-web-app-green.vercel.app",
+		origin: allowedOrigins,
+		credentials: true,
+	})
+);
+app.use(
+	cors({
+		origin: allowedOrigins,
 		credentials: true,
 	})
 );
