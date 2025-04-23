@@ -30,12 +30,7 @@ app.use(
 		credentials: true,
 	})
 );
-app.use(
-	cors({
-		origin: allowedOrigins,
-		credentials: true,
-	})
-);
+
 app.use("/api/auth", authRoutes); //auth routes
 app.use("/api/products", productRoutes); //product routes
 app.use("/api/cart", cartRoutes); //cart routes
