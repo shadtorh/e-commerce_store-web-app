@@ -20,7 +20,8 @@ connectDB();
 const allowedOrigins = [
 	"http://localhost:5173",
 	process.env.FRONTEND_URL,
-	"https://e-commerce-store-web-app-green.vercel.app", // <-- replace with your actual frontend URL
+	"https://e-commerce-store-web-app-mu.vercel.app/",
+	"https://e-commerce-store-web-app-mu.vercel.app",
 ];
 
 app.use(
