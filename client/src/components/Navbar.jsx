@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Search, ShoppingCart, User, LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 import Loading from "./Loading";
 
 const Navbar = () => {
 	const [isProfileOpen, setIsProfileOpen] = useState(false);
+	const [searchQuery, setSearchQuery] = useState(""); // State for search query
+	const navigate = useNavigate(); // Hook for navigation
 	const { user, logout, isLoading } = useUserStore();
 	const { cart, getCartItems } = useCartStore();
 
@@ -45,6 +47,14 @@ const Navbar = () => {
 		cart.length = 0; // Clear cart on logout
 	};
 
+	const handleSearch = (e) => {
+		e.preventDefault();
+		if (searchQuery.trim()) {
+			navigate(`/search?query=${searchQuery.trim()}`); // Navigate to the search results page
+			setSearchQuery(""); // Clear the search input
+		}
+	};
+
 	if (isLoading) {
 		return null; // Show loading state
 	}
@@ -63,23 +73,29 @@ const Navbar = () => {
 
 					{/* Search Bar */}
 					<div className="flex-1 px-2 sm:px-4 lg:px-6 min-w-0">
-						<div className="relative max-w-2xl mx-auto">
+						<form
+							onSubmit={handleSearch}
+							className="relative max-w-2xl mx-auto"
+						>
 							<input
 								type="text"
 								placeholder="Search products..."
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)} // Update search query
 								className="w-full px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
 							/>
-							<Search
+							<button
+								type="submit"
 								className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-gray-400"
-								size={18}
-							/>
-						</div>
+							>
+								<Search size={18} />
+							</button>
+						</form>
 					</div>
 
 					{/* Navigation Items */}
 					<div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
 						{/* Cart - Only for users */}
-
 						<Link
 							to="/cart"
 							className="relative text-gray-700 hover:text-indigo-600 p-1"
@@ -88,7 +104,6 @@ const Navbar = () => {
 							<ShoppingCart size={22} />
 							{cart.length > 0 && (
 								<span className="absolute -top-2 -right-2 bg-indigo-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-									{/* {cart.reduce((total, item) => total + item.quantity, 0)}  */}
 									{cart.length}
 								</span>
 							)}

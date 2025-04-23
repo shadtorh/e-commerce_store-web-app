@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import airpodesImage from "../assets/products/airpodes/boAt Airdopes 111 1.webp";
 import cameraImage from "../assets/products/camera/CP PLUS 3MP Full HD Smart Wi-fi CCTV Home Security Camera 1.jpg";
 import speakersImage from "../assets/products/speakers/boAt Stone 1200 1.webp";
-import printersImage from "../assets/products/printers/Canon MG2570S Multi-function Color Inkjet Printer (Black, Ink Cartridge) 1.webp";
+import printersImage from "../assets/products/printers/Canon PIXMA MG2470 All-in-One Inkjet Printer (White, Grey, Ink Cartridge) 1.webp";
 
 const categories = [
 	{
@@ -48,13 +48,13 @@ const Categories = () => {
 							accessories
 						</p>
 					</div>
-					<Link
+					{/* <Link
 						to="/products"
 						className="mt-4 md:mt-0 inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
 					>
 						View All Categories
 						<ArrowRight size={16} className="ml-2" />
-					</Link>
+					</Link> */}
 				</div>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -67,26 +67,26 @@ const Categories = () => {
 							transition={{ duration: 0.5 }}
 						>
 							<Link to={"/category" + category.href} className="group block">
-								<div className="relative overflow-hidden bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+								<div className="relative overflow-hidden bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-[350px]">
 									{/* Image Container */}
-									<div className="aspect-w-16 aspect-h-10 bg-gray-100">
+									<div className="h-[180px] bg-gray-100 flex items-center justify-center">
 										<img
 											src={category.image}
 											alt={category.label}
-											className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+											className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-300"
 										/>
 									</div>
 
 									{/* Content */}
-									<div className="p-6">
-										<h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+									<div className="p-4 flex flex-col flex-grow">
+										<h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors text-center">
 											{category.label}
 										</h3>
-										<p className="mt-2 text-sm text-gray-600">
+										<p className="mt-2 text-sm text-gray-600 text-center">
 											{category.description}
 										</p>
 
-										<div className="mt-4 flex items-center justify-between">
+										<div className="mt-auto flex items-center justify-center">
 											<span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-700 flex items-center">
 												Browse
 												<ArrowRight

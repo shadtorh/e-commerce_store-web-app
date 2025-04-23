@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Plus, Star, Edit, Trash2, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -7,6 +7,7 @@ import { useProductStore } from "../stores/useProductStore";
 
 const ProductList = () => {
 	const {
+		getAllProducts,
 		products,
 		isLoading,
 		error,
@@ -14,6 +15,10 @@ const ProductList = () => {
 		toggleFeaturedProduct,
 		updateProduct,
 	} = useProductStore();
+
+	useEffect(() => {
+		getAllProducts();
+	}, [getAllProducts]);
 
 	const navigate = useNavigate();
 

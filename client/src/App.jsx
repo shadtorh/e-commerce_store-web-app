@@ -15,6 +15,7 @@ import {
 	PurchaseSuccess,
 	CancelPurchase,
 	Analytics,
+	SearchResults,
 } from "./pages";
 import Layout from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
@@ -107,6 +108,11 @@ const router = createBrowserRouter([
 			{
 				path: "/checkout",
 				element: <Checkout />,
+			},
+
+			{
+				path: "/search",
+				element: <SearchResults />,
 			},
 
 			{

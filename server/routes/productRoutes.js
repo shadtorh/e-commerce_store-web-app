@@ -12,11 +12,14 @@ import {
 	getProductsByCategory,
 	toggleFeatured,
 	updateProduct,
+	searchProducts,
 } from "../controllers/productController.js";
 
 const router = express.Router();
 
 router.get("/", authMiddleware, authAdminMiddleware, getAllProducts);
+
+router.get("/search", searchProducts);
 
 router.get("/featured", getFeaturedProducts);
 router.get("/recommended", getRecommendedProducts);

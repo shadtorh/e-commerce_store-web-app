@@ -190,6 +190,22 @@ export const updateProduct = async (req, res) => {
 	}
 };
 
+export const searchProducts = async (req, res) => {
+	const { query } = req.query;
+	try {
+		const products = await Product.find({
+			name: { $regex: query, $options: "i" },
+		}); // Case-insensitive search
+		res.status(200).json({
+			success: true,
+			products,
+			message: "Products searched successfully",
+		});
+	} catch (error) {
+		res.status(500).json({ success: false, message: error.message });
+	}
+};
+
 // Schedule the cache update every day at midnight if not in test environment
 if (process.env.NODE_ENV !== "test") {
 	schedule.scheduleJob("0 0 * * *", updateFeaturedProductsCache); // Update cache every day at midnight

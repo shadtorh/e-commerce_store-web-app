@@ -14,3 +14,4 @@ export { default as Checkout } from "./Checkout";
 export { default as PurchaseSuccess } from "./PurchaseSuccess";
 export { default as CancelPurchase } from "./CancelPurchase";
 export { default as Analytics } from "./Analytics";
+export { default as SearchResults } from "./SearchResults";

@@ -9,17 +9,4 @@ const instance = axios.create({
 	withCredentials: true, // Ensure CORS supports credentials if needed
 });
 
-instance.interceptors.request.use(
-	(config) => {
-		const token = localStorage.getItem("token");
-		// console.log("Token:", token); // Log the token for debugging
-
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
-		return config;
-	},
-	(error) => Promise.reject(error)
-);
-
 export default instance;

@@ -41,6 +41,7 @@ export const useProductStore = create((set, get) => ({
 		set({ isLoading: true, error: null });
 		try {
 			const response = await axios.get("/products");
+			console.log("Products:", response.data);
 			set({ products: response.data.products });
 		} catch (error) {
 			set({ error: error.response?.data?.message || "An error occurred" });
