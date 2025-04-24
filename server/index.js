@@ -21,7 +21,7 @@ connectDB();
 const allowedOrigins = [
 	"http://localhost:5173",
 	process.env.FRONTEND_URL,
-	"https://e-commerce-store-web-app-mu.vercel.app",
+	"https://torh-mart.netlify.app",
 ];
 
 app.use(
