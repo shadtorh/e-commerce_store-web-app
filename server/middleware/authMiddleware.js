@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const authMiddleware = async (req, res, next) => {
-	const token = req.cookies.jwt;
+	const token = req.cookies?.jwt;
 
 	if (!token) {
 		return res
@@ -27,13 +27,13 @@ export const authMiddleware = async (req, res, next) => {
 		next();
 	} catch (error) {
 		res
-			.status(500)
+			.status(401)
 			.json({ success: false, message: "Invalid or expired token" });
 	}
 };
 
 export const authAdminMiddleware = async (req, res, next) => {
-	const token = req.cookies.jwt;
+	const token = req.cookies?.jwt;
 
 	if (!token) {
 		return res
