@@ -8,6 +8,7 @@ import cartRoutes from "./routes/cartRoutes.js";
 import couponRoutes from "./routes/couponRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import analyticsRoutes from "./routes/analyticsRoutes.js";
+import User from "./models/User.js";
 import cors from "cors";
 dotenv.config();
 
@@ -31,6 +32,8 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes); //auth routes
+// Example Node.js/Express route for demo login
+
 app.use("/api/products", productRoutes); //product routes
 app.use("/api/cart", cartRoutes); //cart routes
 app.use("/api/coupons", couponRoutes); //coupon routes

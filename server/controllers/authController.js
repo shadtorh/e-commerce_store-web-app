@@ -42,7 +42,7 @@ export const signup = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			secure: true,
+			secure: process.env.NODE_ENV === "production", // Use secure cookies in production
 			sameSite: "none", // Allow cross-origin cookies in production
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
@@ -102,7 +102,7 @@ export const login = async (req, res) => {
 
 		res.cookie("jwt", token, {
 			httpOnly: true,
-			secure: true,
+			secure: process.env.NODE_ENV === "production", // Use secure cookies in production
 			sameSite: "none", // Allow cross-origin cookies in production
 			maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 		}); //create cookie for user with 30 days expiration and httpOnly true
@@ -128,7 +128,7 @@ export const logout = async (req, res) => {
 	try {
 		res.cookie("jwt", "", {
 			httpOnly: true,
-			secure: true,
+			secure: process.env.NODE_ENV === "production", // Use secure cookies in production
 			sameSite: "none", // Allow cross-origin cookies in production
 			maxAge: 0, // Set maxAge to 0 to delete the cookie
 		}); //create cookie for user with 30 days expiration and httpOnly true
