@@ -21,7 +21,6 @@ const allowedOrigins = [
 	"http://localhost:5173",
 	process.env.FRONTEND_URL,
 	"https://e-commerce-store-web-app-new.vercel.app",
-	"https://e-commerce-store-web-app-new.vercel.app/",
 ];
 
 app.use(
