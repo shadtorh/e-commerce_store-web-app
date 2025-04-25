@@ -18,7 +18,11 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 connectDB();
 
-const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL, "*"];
+const allowedOrigins = [
+	"http://localhost:5173",
+	process.env.FRONTEND_URL,
+	"https://e-commerce-store-web-app-brown.vercel.app",
+];
 
 app.use(
 	cors({
