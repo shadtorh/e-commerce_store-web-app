@@ -1,63 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Home, Package, ShoppingCart, BarChart } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Home, Package, ShoppingCart, BarChart, Menu, X } from "lucide-react";
 
 const Sidebar = () => {
-	const location = useLocation(); // get the current path
+	const location = useLocation();
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggleSidebar = () => setIsOpen(!isOpen);
 
 	const sidebarVariants = {
-		hidden: { x: -250, opacity: 0 },
-		visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
-	}; // animation for the sidebar
+		hidden: {
+			x: -300,
+			opacity: 0,
+		},
+		visible: {
+			x: 0,
+			opacity: 1,
+			transition: {
+				duration: 0.3,
+			},
+		},
+	};
 
 	const isActive = (path) => {
 		return location.pathname === path;
-	}; // check if the current path is the same as the path in the sidebar
+	};
 
 	const links = [
 		{ path: "/admin-dashboard", icon: Home, label: "Dashboard" },
 		{ path: "/admin/products", icon: Package, label: "Products" },
-		// { path: "/admin/orders", icon: ShoppingCart, label: "Orders" },
 		{ path: "/admin/analytics", icon: BarChart, label: "Analytics" },
-	]; // links for the sidebar
+	];
 
 	return (
-		<motion.aside
-			className="w-64 bg-base-300 text-base-content p-4 h-full"
-			initial="hidden"
-			animate="visible"
-			variants={sidebarVariants}
-		>
-			<nav className="space-y-4">
-				{links.map((link) => {
-					const Icon = link.icon;
-					const active = isActive(link.path);
+		<>
+			{/* Mobile menu button */}
+			<button
+				onClick={toggleSidebar}
+				className="lg:hidden fixed top-20 left-4 z-30 p-2 rounded-md bg-gray-800 text-white shadow-lg"
+				aria-label="Toggle menu"
+			>
+				{isOpen ? <X size={20} /> : <Menu size={20} />}
+			</button>
 
-					return (
-						<motion.div key={link.path} whileHover={{ x: 5 }}>
-							<Link
-								to={link.path}
-								className={`flex items-center space-x-2 p-2 rounded-lg transition-colors
-									${active ? "bg-gray-800 text-white" : "hover:bg-gray-300 hover:text-black"}`}
-							>
+			{/* Overlay for mobile when sidebar is open */}
+			<AnimatePresence>
+				{isOpen && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 0.5 }}
+						exit={{ opacity: 0 }}
+						className="fixed inset-0 bg-black lg:hidden z-20"
+						onClick={toggleSidebar}
+					/>
+				)}
+			</AnimatePresence>
+
+			{/* Sidebar */}
+			<AnimatePresence>
+				<motion.aside
+					className={`fixed lg:static top-0 left-0 z-30 h-full w-64 bg-gray-800 text-white shadow-lg transform ${
+						isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+					} transition-transform duration-300 ease-in-out lg:transition-none`}
+					initial="hidden"
+					animate="visible"
+					variants={sidebarVariants}
+				>
+					{/* Brand/Logo Area */}
+					<div className="p-4 border-b border-gray-700">
+						<h2 className="text-xl font-bold">Admin Panel</h2>
+					</div>
+
+					{/* Navigation Links */}
+					<nav className="p-4 space-y-2">
+						{links.map((link) => {
+							const Icon = link.icon;
+							const active = isActive(link.path);
+
+							return (
 								<motion.div
-									animate={{
-										scale: active ? 1.1 : 1,
-										color: active ? "white" : "currentColor",
-									}}
+									key={link.path}
+									whileHover={{ x: 4 }}
+									onClick={() => setIsOpen(false)} // Close sidebar on mobile when link clicked
 								>
-									<Icon size={20} />
+									<Link
+										to={link.path}
+										className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+											active
+												? "bg-blue-600 text-white"
+												: "text-gray-300 hover:bg-gray-700 hover:text-white"
+										}`}
+									>
+										<motion.div
+											animate={{
+												scale: active ? 1.1 : 1,
+											}}
+										>
+											<Icon size={18} />
+										</motion.div>
+										<span className={`${active ? "font-medium" : ""}`}>
+											{link.label}
+										</span>
+									</Link>
 								</motion.div>
-								<span className={active ? "font-medium" : ""}>
-									{link.label}
-								</span>
-							</Link>
-						</motion.div>
-					);
-				})}
-			</nav>
-		</motion.aside>
+							);
+						})}
+					</nav>
+				</motion.aside>
+			</AnimatePresence>
+		</>
 	);
 };
 
