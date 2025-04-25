@@ -34,7 +34,8 @@ export const authMiddleware = async (req, res, next) => {
 };
 
 export const authAdminMiddleware = async (req, res, next) => {
-	const token = req.cookies?.jwt;
+	const authHeader = req.headers.authorization;
+	const token = authHeader && authHeader.split(" ")[1];
 
 	if (!token) {
 		return res
