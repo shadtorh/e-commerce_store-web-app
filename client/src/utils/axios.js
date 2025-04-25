@@ -9,4 +9,18 @@ const instance = axios.create({
 	withCredentials: true, // Ensure CORS supports credentials if needed
 });
 
+// In frontend - Add token to all requests
+instance.interceptors.request.use(
+	(config) => {
+		const token = localStorage.getItem("token"); // Get the token from local storage
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`; // Set the token in the Authorization header
+		}
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error); // Handle request error
+	}
+);
+
 export default instance;

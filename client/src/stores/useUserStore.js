@@ -46,11 +46,8 @@ export const useUserStore = create((set) => ({
 		}
 		try {
 			const response = await axios.post("/auth/login", { email, password });
-			// console.log("Login response:", response.data); // Debugging log
-			// if (response.data.user.role === "admin") {
-			// 	navigate("/admin/dashboard");
-			// } else if (response.data.user.role === "user") {
-			// 	navigate("/dashboard");
+			//store token in local storage
+			localStorage.setItem("token", response.data.token);
 
 			toast.success(response.data.message);
 			navigate("/");
@@ -68,6 +65,7 @@ export const useUserStore = create((set) => ({
 		set({ isLoading: true });
 		try {
 			await axios.post("/auth/logout");
+			localStorage.removeItem("token"); // Remove token from local storage
 			set({ user: null, isLoading: false });
 			toast.success("Logged out successfully");
 		} catch (error) {
@@ -80,9 +78,7 @@ export const useUserStore = create((set) => ({
 	checkAuth: async () => {
 		set({ checkingAuth: true, isLoading: true }); // Ensure both states are set
 		try {
-			const response = await axios.get("/auth/profile", {
-				withCredentials: true,
-			});
+			const response = await axios.get("/auth/profile");
 			set({ user: response.data.user, checkingAuth: false, isLoading: false }); // Reset both states on success
 		} catch (error) {
 			set({ user: null, checkingAuth: false, isLoading: false }); // Reset both states on failure
