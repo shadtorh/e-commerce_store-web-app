@@ -18,12 +18,18 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 connectDB();
 
-const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
+const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL, "*"];
 
 app.use(
 	cors({
 		origin: allowedOrigins,
 		credentials: true,
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+		allowedHeaders: [
+			"Content-Type",
+			"Authorization",
+			"Access-Control-Allow-Origin",
+		],
 	})
 );
 
