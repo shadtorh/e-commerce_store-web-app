@@ -45,6 +45,8 @@ export const authAdminMiddleware = async (req, res, next) => {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 		const user = await User.findById(decoded.id);
 
+		// Find user by ID (from token)
+
 		if (!user) {
 			return res
 				.status(404)
