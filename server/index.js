@@ -13,6 +13,7 @@ import path from "path";
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1); // trust first proxy
 const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
@@ -23,6 +24,8 @@ const allowedOrigins = [
 	process.env.FRONTEND_URL,
 	"https://e-commerce-store-web-app-brown.vercel.app",
 ];
+
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
 app.use(
 	cors({
