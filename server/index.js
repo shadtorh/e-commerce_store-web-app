@@ -41,6 +41,11 @@ app.use(
 );
 
 app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Credentials", "true");
+	next();
+});
+
+app.use((req, res, next) => {
 	console.log("Origin:", req.headers.origin);
 	next();
 });
@@ -57,15 +62,6 @@ app.use("/api/analytics", analyticsRoutes); //analytics routes
 app.get("/", (req, res) => {
 	res.send("Hello from the server");
 });
-
-if (process.env.NODE_ENV === "production") {
-	const __dirname = path.resolve();
-	app.use(express.static(path.join(__dirname, "/client/dist")));
-
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
-	});
-}
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

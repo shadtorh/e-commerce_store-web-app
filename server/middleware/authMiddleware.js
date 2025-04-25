@@ -5,8 +5,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const authMiddleware = async (req, res, next) => {
-	const token = req.cookies?.jwt;
-
+	// Check for token in Authorization header
+	const authHeader = req.headers.authorization;
+	const token = authHeader && authHeader.split(" ")[1];
 	if (!token) {
 		return res
 			.status(401)
@@ -15,7 +16,7 @@ export const authMiddleware = async (req, res, next) => {
 
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		const user = await User.findById(decoded.id); // Find user by ID (from token)
+		const user = await User.findById(decoded.id).select("-password"); // Find user by ID (from token)
 
 		if (!user) {
 			return res
