@@ -17,12 +17,29 @@ dist-ssr/
 build/
 out/
 
+client/build
+client/dist
+client/out/
+client/coverage
+client/.next
+client/.cache
+client/public/static/
+client/.sass-cache/
+client/.eslintcache/
+client/.tsbuildinfo/
+client/node_modules
+
+client/.env
+server/node_modules
+server/.env
+
 # Environment files
 .env
 .env.*.local
 
 # Editor directories and files
 .vscode/
+vscode
 !.vscode/extensions.json
 .idea/
 .DS_Store
