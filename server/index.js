@@ -45,10 +45,10 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use((req, res, next) => {
-	console.log("Origin:", req.headers.origin);
-	next();
-});
+// app.use((req, res, next) => {
+// 	console.log("Origin:", req.headers.origin);
+// 	next();
+// });
 
 app.use("/api/auth", authRoutes); //auth routes
 // Example Node.js/Express route for demo login

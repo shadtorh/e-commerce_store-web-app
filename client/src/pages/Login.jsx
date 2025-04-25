@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import Loading from "../components/Loading";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
 	});
 	const [showPassword, setShowPassword] = useState(false);
 	const [rememberMe, setRememberMe] = useState(false);
+	const [loading, setLoading] = useState(false); // Local loading state
 	const { login, isLoading } = useUserStore();
 	const navigate = useNavigate();
 	// Animation variants for the container
@@ -49,6 +51,25 @@ const Login = () => {
 			setFormData({ email: "", password: "" }); // Moved inside try block to ensure login success
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const handleGuestLogin = async (role) => {
+		setLoading(true);
+
+		try {
+			// Predefined credentials based on role
+			const credentials =
+				role === "admin"
+					? { email: "admin@gmail.com", password: "Shad4321." }
+					: { email: "user@example.com", password: "Password@123" };
+
+			await login(credentials, navigate);
+		} catch (error) {
+			console.error("Guest login failed:", error);
+			toast.error("Guest login failed. Please try again.");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -178,6 +199,43 @@ const Login = () => {
 						)}
 					</motion.button>
 				</form>
+
+				<div className="mt-6 flex flex-col gap-3">
+					<div className="relative text-center">
+						<div className="absolute inset-0 flex items-center">
+							<div className="w-full border-t border-gray-300"></div>
+						</div>
+						<div className="relative flex justify-center text-sm">
+							<span className="px-2 bg-white text-gray-500">
+								Quick access for testing
+							</span>
+						</div>
+					</div>
+
+					<div className="grid grid-cols-2 gap-3 mt-3">
+						<motion.button
+							type="button"
+							onClick={() => handleGuestLogin("user")}
+							disabled={isLoading}
+							className="flex justify-center items-center px-4 py-2 border border-indigo-300 text-sm font-medium rounded-md text-indigo-700 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Guest User
+						</motion.button>
+
+						<motion.button
+							type="button"
+							onClick={() => handleGuestLogin("admin")}
+							disabled={isLoading}
+							className="flex justify-center items-center px-4 py-2 border border-rose-300 text-sm font-medium rounded-md text-rose-700 bg-rose-50 hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}
+						>
+							Guest Admin
+						</motion.button>
+					</div>
+				</div>
 
 				<motion.p
 					className="text-center text-sm text-gray-600 mt-6"

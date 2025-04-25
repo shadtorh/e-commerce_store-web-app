@@ -53,7 +53,7 @@ const Hero = () => {
 								whileTap={{ scale: 0.95 }}
 							>
 								<Link
-									to="/products"
+									to="/#"
 									className="inline-block bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors duration-200"
 								>
 									Shop Now
@@ -64,7 +64,7 @@ const Hero = () => {
 								whileTap={{ scale: 0.95 }}
 							>
 								<Link
-									to="/collection"
+									to="/#"
 									className="inline-block bg-white text-black px-8 py-3 rounded-lg font-medium border border-black hover:bg-gray-50 transition-colors duration-200"
 								>
 									Explore Collection
