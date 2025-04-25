@@ -41,6 +41,10 @@ app.use("/api/coupons", couponRoutes); //coupon routes
 app.use("/api/payment", paymentRoutes); //payment routes
 app.use("/api/analytics", analyticsRoutes); //analytics routes
 
+app.get("/", (req, res) => {
+	res.send("Hello from the server");
+});
+
 if (process.env.NODE_ENV === "production") {
 	const __dirname = path.resolve();
 	app.use(express.static(path.join(__dirname, "/client/build")));
