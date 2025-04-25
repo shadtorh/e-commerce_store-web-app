@@ -1,16 +1,14 @@
 import React from "react";
 import { useCartStore } from "../stores/useCartStore";
-import { useNavigate } from "react-router-dom";
+
 import { loadStripe } from "@stripe/stripe-js";
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
-import { toast } from "react-toastify";
 import axios from "../utils/axios";
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 const OderSummary = () => {
 	const { subtotal, total, isCouponApplied, coupon, cart } = useCartStore();
-	const navigate = useNavigate();
 
 	const savings = subtotal - total;
 
@@ -24,12 +22,6 @@ const OderSummary = () => {
 		console.log("Session ID: ", sessionId, "Total Amount: ", totalAmount);
 
 		const result = await stripe.redirectToCheckout({ sessionId });
-
-		if (result.error) {
-			toast.error(result.error.message);
-		} else {
-			navigate("/checkout/success");
-		}
 	};
 
 	return (
