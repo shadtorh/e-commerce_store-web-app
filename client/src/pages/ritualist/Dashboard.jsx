@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useRitualistStore from '../../stores/useRitualistStore';
 import { moods } from '../../data/moods';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import RitualistNav from '../../components/ritualist/RitualistNav';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -229,6 +230,7 @@ const Dashboard = () => {
           </motion.div>
         )}
       </div>
+      <RitualistNav />
     </div>
   );
 };

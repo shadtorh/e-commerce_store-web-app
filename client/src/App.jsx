@@ -24,6 +24,8 @@ import {
 	RoutineLibrary,
 	RitualistLogin,
 	Onboarding,
+	Statistics,
+	NotificationCenter,
 } from "./pages/ritualist";
 import Layout from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
@@ -82,6 +84,14 @@ const router = createBrowserRouter([
 			{
 				path: "/routine-library",
 				element: <RoutineLibrary />,
+			},
+			{
+				path: "/statistics",
+				element: <Statistics />,
+			},
+			{
+				path: "/notifications",
+				element: <NotificationCenter />,
 			},
 
 			{
