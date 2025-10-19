@@ -17,10 +17,17 @@ import {
 	Analytics,
 	SearchResults,
 } from "./pages";
+import {
+	Dashboard,
+	MoodEntry,
+	RoutineDisplay,
+	RoutineLibrary,
+	RitualistLogin,
+	Onboarding,
+} from "./pages/ritualist";
 import Layout from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
 import AdminRoute from "./components/AdminRoute";
-// import UserRoute from "./components/UserRoute";
 import PublicRoute from "./components/PublicRoute";
 import { useUserStore } from "./stores/useUserStore";
 import { useEffect } from "react";
@@ -51,6 +58,30 @@ const router = createBrowserRouter([
 						<Login />
 					</PublicRoute>
 				),
+			},
+			{
+				path: "/ritualist-login",
+				element: <RitualistLogin />,
+			},
+			{
+				path: "/onboarding",
+				element: <Onboarding />,
+			},
+			{
+				path: "/dashboard",
+				element: <Dashboard />,
+			},
+			{
+				path: "/mood-entry",
+				element: <MoodEntry />,
+			},
+			{
+				path: "/routine-display",
+				element: <RoutineDisplay />,
+			},
+			{
+				path: "/routine-library",
+				element: <RoutineLibrary />,
 			},
 
 			{
