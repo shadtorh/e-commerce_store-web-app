@@ -41,7 +41,7 @@ const RitualistNav = () => {
             >
               <Icon size={24} />
               <span className="text-xs mt-1">{item.label}</span>
-              {item.badge > 0 && (
+              {item.badge && item.badge > 0 && (
                 <div className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {item.badge}
                 </div>

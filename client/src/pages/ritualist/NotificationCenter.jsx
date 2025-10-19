@@ -187,9 +187,7 @@ const NotificationCenter = () => {
                             Mark as Read
                           </button>
                         )}
-                        <button className="text-gray-400 hover:text-red-500 transition-colors">
-                          <FiTrash2 size={18} />
-                        </button>
+                        {/* Delete functionality to be implemented */}
                       </div>
                     </div>
                   </div>
@@ -252,12 +250,8 @@ const NotificationCenter = () => {
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <button className="px-4 py-2 bg-purple-100 text-purple-600 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors">
-                        Edit
-                      </button>
-                      <button className="text-gray-400 hover:text-red-500 transition-colors">
-                        <FiTrash2 size={18} />
-                      </button>
+                      {/* Edit and Delete functionality to be implemented */}
+                      <span className="text-sm text-gray-500">Scheduled</span>
                     </div>
                   </div>
                 </motion.div>

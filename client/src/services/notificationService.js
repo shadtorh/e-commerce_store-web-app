@@ -1,12 +1,11 @@
 // AWS SNS Push Notification Setup
 import { SNSClient, PublishCommand, CreatePlatformEndpointCommand } from "@aws-sdk/client-sns";
 
+// Note: For production, use AWS Cognito Identity Pools or assume role from backend
+// Frontend should never contain AWS credentials
 const snsClient = new SNSClient({ 
-  region: import.meta.env.VITE_AWS_REGION || "us-east-1", 
-  credentials: {
-    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID || "",
-    secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY || ""
-  }
+  region: import.meta.env.VITE_AWS_REGION || "us-east-1"
+  // Credentials should be obtained via AWS Cognito Identity Pools or backend proxy
 });
 
 // Register device for push notifications

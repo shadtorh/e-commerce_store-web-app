@@ -9,7 +9,7 @@ const Statistics = () => {
   const { moodHistory, routineHistory, stats } = useRitualistStore();
   const [timePeriod, setTimePeriod] = useState(30);
 
-  // Mock data for demonstration
+  // Mock data for demonstration (replace with real data from store)
   const moodTrendData = [
     { date: 'Jan 1', positive: 5, neutral: 3, negative: 2 },
     { date: 'Jan 8', positive: 6, neutral: 2, negative: 2 },
@@ -34,7 +34,7 @@ const Statistics = () => {
     { day: 'Sun', routines: 3, moods: 3 },
   ];
 
-  const engagementRate = moodHistory.length > 0 
+  const engagementRate = (moodHistory.length > 0 && routineHistory.length > 0)
     ? Math.round((routineHistory.length / moodHistory.length) * 100)
     : 0;
 
